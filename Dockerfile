@@ -9,7 +9,11 @@ RUN apk --no-cache update && apk --no-cache upgrade && \
 
 RUN mkdir -p /opt/check && echo test > /opt/check/index.html
 
+COPY exec.sh /opt/ceck/
+
 VOLUME /opt/check
+
+
 
 EXPOSE 80
 
