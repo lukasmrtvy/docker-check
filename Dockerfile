@@ -1,30 +1,20 @@
 FROM alpine:latest
 
-ENV DOCKER_VERSION 17.06.2-ce
-
-RUN apk --no-cache update && apk --no-cache upgrade && \
-    apk --no-cache add jq darkhttpd tar curl && \
-    mkdir -p /opt/docker && \
-    curl -sL https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz | tar xz -C /opt/docker --strip-components=1
-
-RUN mkdir -p /opt/check && echo test > /opt/check/index.html
-
-ADD crontab /etc/crontabs/hello-cron
-
-RUN chmod 0644 /etc/crontabs/hello-cron
+ENV CHECK_VERSION 1.0
 
 COPY exec.sh /opt/check/
 
-RUN chmod +x /opt/check/exec.sh
+RUN apk --no-cache update && \
+    apk --no-cache add jq darkhttpd curl tzdata && \
+    mkdir -p /opt/check && echo "Not populate yet" > /opt/check/index.html && \
+    echo '0  *  *  *  *    /opt/check/exec.sh' >> /etc/crontabs/root  && \
+    chmod +x /opt/check/exec.sh 
 
 VOLUME /opt/check
 
-
-
 EXPOSE 80
 
-LABEL url=https://api.github.com/repos/xbmc/xbmc/releases/latest
-LABEL version=${DOCKER_VERSION}
-LABEL name=check
+LABEL url=https://api.github.com/repos/muhahacz/docker-check/releases/latest
+LABEL version=${CHECK_VERSION}
 
-CMD darkhttpd /opt/check --port 80
+CMD darkhttpd /opt/check --port 80 --daemon && crond -f
