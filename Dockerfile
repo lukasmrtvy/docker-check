@@ -1,7 +1,5 @@
 FROM alpine:latest
 
-ENV CHECK_VERSION 1.0
-
 COPY exec.sh /opt/check/
 
 RUN apk --no-cache update && \
@@ -13,8 +11,5 @@ RUN apk --no-cache update && \
 WORKDIR  /opt/check/
 
 EXPOSE 80
-
-LABEL url=https://api.github.com/repos/muhahacz/docker-check/releases/latest
-LABEL version=${CHECK_VERSION}
 
 CMD darkhttpd /opt/check --port 80 --daemon && crond -f
