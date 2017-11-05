@@ -19,7 +19,6 @@ command=`curl -s --unix-socket /var/run/docker.sock http:/v1.30/containers/json 
 
 echo `date` > index.html
 cat << 'EOF' >> index.html
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +28,6 @@ cat << 'EOF' >> index.html
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 <div class="container">
   <h2>Docker table</h2>
   <p> Use Label version in dockerfile to pull latest version info from github </p>
@@ -43,9 +41,7 @@ cat << 'EOF' >> index.html
       </tr>
     </thead>
     <tbody>
-
 EOF
-
 for p in $command
 do
   getstate=`curl -s --unix-socket /var/run/docker.sock http:/v1.30/containers/${p}/json | jq -r '.State.Status'`
@@ -54,6 +50,8 @@ do
 #  getports=`curl -s --unix-socket /var/run/docker.sock http:/v1.30/containers/${p}/json | jq  -r  '.NetworkSettings.Ports[][].HostPort'`
   getgiturl=`curl -s --unix-socket /var/run/docker.sock http:/v1.30/containers/${p}/json | jq -r '.Config.Labels.url'`
 
+echo $p
+echo $getname
 
 if [ $(echo "${getgiturl}" |  sed 's:.*/::') = "master"  ]; then
   echo "master"
@@ -66,15 +64,11 @@ elif [ $(echo "${getgiturl}" |  sed 's:.*/::') = "latest"  ]; then
   #getgitversion=`curl -s ${getgiturl} | jq -r '.[0].name'`
   getgitversion=`curl -s ${getgiturl} | jq --raw-output .tag_name`
 fi
-
   getlocalversion=`curl -s --unix-socket /var/run/docker.sock http:/v1.30/containers/${p}/json | jq -r '.Config.Labels.version'`
-
-
 if [ ${getgiturl} = "null" ] || [ ${getlocalversion} = "null" ]; then
         getgitversion=$(echo "Not available")
         getlocalversion=$(echo "Not available")
 fi
-
     echo "<tr>" >> index.html
 #    echo "<td> ${p} </td> " >> index.html
     echo "<td> ${getname} </td> " >> index.html
@@ -82,19 +76,14 @@ fi
 #    echo "<th> ${getports}  </td>" >> index.html
     echo "<td> ${getlocalversion}  </td>" >> index.html
     echo "<td> ${getgitversion}  </td>" >> index.html
-
     echo "</tr>" >> index.html
 done
-
 cat << 'EOF' >> index.html
-
         </tbody>
       </table>
     </div>
    </div>
   </body>
 </html>
-
 EOF
-
 # echo "done"
