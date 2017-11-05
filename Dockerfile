@@ -10,7 +10,7 @@ RUN apk --no-cache update && \
     echo '0  *  *  *  *    /opt/check/exec.sh' >> /etc/crontabs/root  && \
     chmod +x /opt/check/exec.sh 
 
-VOLUME /opt/check
+WORKDIR  /opt/check/
 
 EXPOSE 80
 
