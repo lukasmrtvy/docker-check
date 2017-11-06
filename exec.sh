@@ -15,8 +15,7 @@ cat << 'EOF' >> index.html
 </head>
 <body>
 <div class="container">
-  <h2>Docker table</h2>
-  <p> Use Label version in dockerfile to pull latest version info from github </p>
+  <h2>Docker version table</h2>
   <div class="table-responsive">
   <table class="table table-bordered .table-condensed">
     <thead>
