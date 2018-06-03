@@ -3,7 +3,7 @@ FROM alpine:latest
 COPY exec.sh /opt/check/
 
 RUN apk --no-cache update && \
-    apk --no-cache add jq darkhttpd curl tzdata && \
+    apk --no-cache add jq darkhttpd curl moreutils tzdata && \
     mkdir -p /opt/check && echo "Not populate yet" > /opt/check/index.html && \
     echo '0  *  *  *  *    /opt/check/exec.sh' >> /etc/crontabs/root  && \
     chmod +x /opt/check/exec.sh 
