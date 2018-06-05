@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Check</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.foundation.min.css"/>
+ 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.foundation.min.js"></script> 
+    
+    <script>
+    $(document).ready(function() {
+
+  var dataSet = [
+    ["alerthub", "https://github.com/Ardakilic/alerthub.git", "x","1.2.0 (16-05-2018)", "1.2.0 (16-05-2018)", "6ef162c (16-05-2018)"],
+    ["atom", "https://github.com/atom/atom.git", "1.28.0-beta0 (15-05-2018)","1.27.0 (15-05-2018))", "1.28.0-beta0 (15-05-2018)", "e4dd063 (16-05-2018)"],
+  ];
+
+  var columnDefs = [{
+    title: "Name"
+  }, {
+    title: "Url"
+  }, {
+    title: "Pre-release"
+  }, {
+    title: "Release"
+  }, {
+    title: "Tag"
+  }, {
+    title: "Commit"
+  }];
+
+  var myTable;
+
+  myTable = $('#example').DataTable({
+    "sPaginationType": "full_numbers",
+    data: dataSet,
+    columns: columnDefs,
+		dom: 'Bfrtip',        // Needs button container
+          select: 'single',
+          responsive: true,
+          altEditor: true,     // Enable altEditor
+          buttons: [{
+            text: 'Add',
+            name: 'add'        // do not change name
+          },
+          {
+            extend: 'selected', // Bind to Selected row
+            text: 'Edit',
+            name: 'edit'        // do not change name
+          },
+          {
+            extend: 'selected', // Bind to Selected row
+            text: 'Delete',
+            name: 'delete'      // do not change name
+         }]
+  });
+
+
+});
+    </script>
+    
+   </head>
+   <body>
+   <div class="container">
+  <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-striped" id="example">
+   </table>
+   </div>
+   </body>
+</html>   
