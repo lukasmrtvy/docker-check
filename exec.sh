@@ -44,3 +44,5 @@ jq --arg arg_name "$name" \
   --arg arg_latesttag "$latest_tag" \
   --arg arg_latestcommit "$latest_commit" \
         '.data += [[ $arg_name, $arg_state, $arg_giturl, $arg_localversion, $arg_latestrelease, $arg_latesttag, $arg_latestcommit ]]' "$result" | sponge "$result"
+        
+done        
