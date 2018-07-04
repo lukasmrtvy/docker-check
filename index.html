@@ -14,61 +14,28 @@
     
     <script>
     $(document).ready(function() {
-
-  var dataSet = [
-    ["alerthub", "https://github.com/Ardakilic/alerthub.git", "x","1.2.0 (16-05-2018)", "1.2.0 (16-05-2018)", "6ef162c (16-05-2018)"],
-    ["atom", "https://github.com/atom/atom.git", "1.28.0-beta0 (15-05-2018)","1.27.0 (15-05-2018))", "1.28.0-beta0 (15-05-2018)", "e4dd063 (16-05-2018)"],
-  ];
-
-  var columnDefs = [{
-    title: "Name"
-  }, {
-    title: "Url"
-  }, {
-    title: "Pre-release"
-  }, {
-    title: "Release"
-  }, {
-    title: "Tag"
-  }, {
-    title: "Commit"
-  }];
-
-  var myTable;
-
-  myTable = $('#example').DataTable({
-    "sPaginationType": "full_numbers",
-    data: dataSet,
-    columns: columnDefs,
-		dom: 'Bfrtip',        // Needs button container
-          select: 'single',
-          responsive: true,
-          altEditor: true,     // Enable altEditor
-          buttons: [{
-            text: 'Add',
-            name: 'add'        // do not change name
-          },
-          {
-            extend: 'selected', // Bind to Selected row
-            text: 'Edit',
-            name: 'edit'        // do not change name
-          },
-          {
-            extend: 'selected', // Bind to Selected row
-            text: 'Delete',
-            name: 'delete'      // do not change name
-         }]
-  });
-
-
-});
+	myTable = $('#example').DataTable({
+        "ajax": "result.json"
+  	});
+    });
     </script>
     
    </head>
    <body>
-   <div class="container">
-  <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-striped" id="example">
-   </table>
-   </div>
+
+   <table id="example">
+    <thead>
+        <tr>
+            <th>Name</th>
+	    <th>State</th>
+            <th>URL</th>
+            <th>Current Version</th>
+            <th>Release</th>
+            <th>Tag</th>
+	    <th>Commit</th>
+        </tr>
+    </thead>
+  </table>
+
    </body>
-</html>   
+</html>
