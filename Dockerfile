@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.7
 
 COPY exec.sh /opt/check/
 COPY index.html /opt/check
