@@ -3,6 +3,8 @@ pipeline:
     image: plugins/docker
     dry_run: true
     auto_tag: true
+    repo: foo/bar
+    secrets: [ docker_username, docker_password ]
   tag:
     image: docker:git 
     commands:
