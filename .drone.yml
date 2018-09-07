@@ -1,10 +1,12 @@
 pipeline:
+  git:
+    image: plugins/git
+    tags: true
   docker-build-publish:
     image: plugins/docker
     repo: foo/bar
     secrets: [ docker_username, docker_password ]
     dry_run: true
-pipeline:
   github_release:
     image: plugins/github-release
     secrets: [ github_token ]
