@@ -4,7 +4,12 @@ pipeline:
     dry_run: true
     auto_tag: true
     repo: foo/bar
-    secrets: [ docker_username, docker_password ]
+    secrets: [ docker_username, docker_password  ]
+  tag:
+    image: docker:git 
+    commands:
+      - git tag vX.Y.Z
+      - git push origin vX.Y.Z    
   github_release:
     image: plugins/github-release
     secrets: [ github_token ]
@@ -14,3 +19,6 @@ pipeline:
       - sha1
       - sha256
       - sha512
+    when:
+      event: tag
+   
