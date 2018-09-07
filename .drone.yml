@@ -14,5 +14,4 @@ pipeline:
       - sha1
       - sha256
       - sha512
-    when:
-      event: tag
+
