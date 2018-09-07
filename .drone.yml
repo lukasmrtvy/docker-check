@@ -7,10 +7,12 @@ pipeline:
 pipeline:
   github_release:
     image: plugins/github-release
-    api_key: ${API_SECRET}
+    secrets: [ github_token ]
     files: dist/*
     checksum:
       - md5
       - sha1
       - sha256
       - sha512
+    when:
+      event: tag
