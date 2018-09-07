@@ -7,6 +7,7 @@ pipeline:
   tag:
     image: docker:git 
     commands:
+      - git config remote.origin.url https://asd:{github_token}@github.com/{NEED_USERNAME}/{NEED_REPONAME}.git
       - git tag vX.Y.Z
       - git push origin vX.Y.Z    
   github_release:
